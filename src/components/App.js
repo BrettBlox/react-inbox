@@ -5,7 +5,6 @@ import ComposeMessage from "./ComposeMessage";
 import MessagesList from "./MessagesList";
 
 export default class App extends Component {
-  
   state = {
     messages: []
   };
@@ -13,7 +12,7 @@ export default class App extends Component {
   //GET request to the API
   request = async (method = "GET", body = null) => {
     if (body) body = JSON.stringify(body);
-    return await fetch('http://localhost:8082/api/messages', {
+    return await fetch("http://localhost:8082/api/messages", {
       method: method,
       headers: {
         "Content-Type": "application/json",
@@ -171,22 +170,21 @@ export default class App extends Component {
   // Shows/Hides the compose component.
   toggleCompose = () => {
     this.setState({ composing: !this.state.composing });
-  }
-    
-  sendMessage = async message => {
-      const response = await this.request("POST", {
-        subject: message.subject,
-        body: message.body
-      });
-      const newMessage = await response.json();
+  };
 
-      const messages = [...this.state.messages, newMessage];
-      this.setState({
-        messages,
-        composing: false
-      });
-    };
-  
+  sendMessage = async message => {
+    const response = await this.request("POST", {
+      subject: message.subject,
+      body: message.body
+    });
+    const newMessage = await response.json();
+
+    const messages = [...this.state.messages, newMessage];
+    this.setState({
+      messages,
+      composing: false
+    });
+  };
 
   render() {
     return (
